@@ -52,5 +52,8 @@ public class Main {
 		// Optimization
 		// TODO: Write optimization
 		// optimize(routes, optimizationParams);
+		RouteOptimization optimizer = new RouteOptimization(routesList, optimizationParams);
+		//System.out.println(optimizer.getWalkingPenalty(450));
+		optimizer.getOptimalRoutes();
 	}
 }

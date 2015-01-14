@@ -18,6 +18,9 @@ public class OptimizationParams {
 	public static final double DEFAULT_WALKING_PENALTY_DL1 = 1.5;
 	public static final double DEFAULT_WALKING_PENALTY_DL2 = 1.75;
 	public static final double DEFAULT_WALKING_PENALTY_DL3 = 3.0;
+	public static final double DEFAULT_WALKING_SPEED = 64;
+	public static final double DEFAULT_FIRST_CHANGE_PENALTY = 0.15;
+	public static final double DEFAULT_SUBSEQUENT_CHANGE_PENALTY = 0.20;
 
 	private double walkingDistanceMax = DEFAULT_WALKING_DISTANCE_MAX;
 	private double walkingDistanceL1 = DEFAULT_WALKING_DISTANCE_L1;
@@ -26,6 +29,9 @@ public class OptimizationParams {
 	private double walkingPenaltyDL1 = DEFAULT_WALKING_PENALTY_DL1;
 	private double walkingPenaltyDL2 = DEFAULT_WALKING_PENALTY_DL2;
 	private double walkingPenaltyDL3 = DEFAULT_WALKING_PENALTY_DL3;
+	private double walkingSpeed = DEFAULT_WALKING_SPEED;
+	private double firstChangePenalty = DEFAULT_FIRST_CHANGE_PENALTY;
+	private double subsequentChangePenalty = DEFAULT_SUBSEQUENT_CHANGE_PENALTY;
 
 	// Weather
 	public static WeatherType DEFAULT_WEATHER_TYPE = WeatherType.GOOD;
@@ -106,6 +112,14 @@ public class OptimizationParams {
 	public void setWalkingPenaltyDL3(double walkingPenaltyDL3) {
 		this.walkingPenaltyDL3 = walkingPenaltyDL3;
 	}
+	
+	public double getWalkingSpeed(){
+		return walkingSpeed;
+	}
+	
+	public void setWalkingSpeed(double walkingSpeed){
+		this.walkingSpeed = walkingSpeed;
+	}
 
 	public WeatherType getWeatherType() {
 		return weatherType;
@@ -137,6 +151,22 @@ public class OptimizationParams {
 
 	public void setWeatherBadExtraPenalty(double weatherBadExtraPenalty) {
 		this.weatherBadExtraPenalty = weatherBadExtraPenalty;
+	}
+	
+	public double getFirstChangePenalty(){
+		return this.firstChangePenalty;
+	}
+	
+	public void setFirstChangePenalty(double firstChangePenalty){
+		this.firstChangePenalty = firstChangePenalty;
+	}
+	
+	public double getSubsequentChangePenalty(){
+		return this.subsequentChangePenalty;
+	}
+	
+	public void setSubsequentChangePenalty(double subsequentChangePenalty){
+		this.subsequentChangePenalty = subsequentChangePenalty;
 	}
 
 }

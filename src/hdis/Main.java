@@ -7,6 +7,7 @@ import java.util.List;
 public class Main {
 
 	private static HashMap<Integer, Integer> scoredEstablishments = new HashMap<Integer, Integer>();
+	private static List<Route> routes = new ArrayList<Route>();
 
 	public static void main(String[] args) {
 
@@ -60,12 +61,18 @@ public class Main {
 		optimizationParams.setWeatherType(WeatherType.BAD);
 
 		// Optimization
-		// TODO: Write optimization
 		// optimize(routes, optimizationParams);
+		scoreEstablishments(foodVotes, establishments, optimizationParams);
+
 		RouteOptimization routeOptimizer = new RouteOptimization(routesList, optimizationParams);
 		//System.out.println(optimizer.getWalkingPenalty(450));
+		/*
+		 *TODO: Route optimization should integrate establishment score to save steps/structures.
+		 * This will probably require some normalization so that the penalties for distance and food types are in
+		 * a closer range of each other, in terms of scale
+		 */
 		routeOptimizer.getOptimalRoutes();
-		scoreEstablishments(foodVotes, establishments, optimizationParams);
+
 	}
 
 	/**
@@ -79,7 +86,11 @@ public class Main {
 		HashMap<FoodType, Integer> scoredTypes = new HashMap<FoodType, Integer>();
 		int foodTypeScore;
 
-		//Get score for each food type based on votes
+		/*
+		 * Get score for each food type based on votes
+		 *(The simple and complex optimization should function the same, in the  complex (ranked selection) case we
+		 * should alter the vote weight rather than this logic.)
+		 */
 		for (FoodVote vote : foodVotes) {
 			foodTypeScore = params.getPeopleCount() - vote.getVotesCount();
 			scoredTypes.put(vote.getFoodType(), foodTypeScore);
@@ -89,6 +100,34 @@ public class Main {
 		for (Establishment establishment : establishments) {
 			scoredEstablishments.put(establishment.getID(), scoredTypes.get(establishment.getType()));
 		}
+	}
+
+	/**
+	 * Given a list of cinemas and a list of restaurants, generates all feasible routes for the evening
+	 * @param cinemas List of cinemas showing the selected film
+	 * @param establishments List of establishments available to the system
+	 */
+	private static void generatePotentialRoutes(List<Cinema> cinemas,  List<Establishment> establishments, OptimizationParams params){
+		int routeId = 0;
+
+		for(Cinema cinema : cinemas){
+			for(Establishment establishment : establishments){
+				if(getDistance(cinema, establishment) <= params.getWalkingDistanceMax()){
+					routes.add(new Route(routeId, cinema, establishment, getDistance(cinema, establishment)));
+				}
+			}
+		}
+	}
+
+	/**
+	 * TODO: Until merging with GitLab the location structure is unknown
+	 * Calculates distance in metres between two points
+	 * @param locationA Placeholder for a locale
+	 * @param LocationB Placeholder for a second locale
+	 * @return Distance between A and B in meters
+	 */
+	private static double getDistance(Object locationA, Object LocationB){
+		return 0.0;
 	}
 
 }

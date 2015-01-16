@@ -66,7 +66,7 @@ public class RouteOptimization {
 	public double getTotalPenaltyForARoute(Route route)
 	{
 		double totalPenalty = getWalkingPenalty(route.getWalkingDistance()) +
-				getTravellingTimePenalty(route) + getConnectionChangesPenalty(route);
+				 getConnectionChangesPenalty(route);
 		return totalPenalty;
 	}
 	
